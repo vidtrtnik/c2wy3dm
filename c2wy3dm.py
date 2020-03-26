@@ -1,19 +1,19 @@
 import sys
-#print ('Number of arguments:', len(sys.argv), 'arguments.')
-#print ('Argument List:', str(sys.argv))
+# print ('Number of arguments:', len(sys.argv), 'arguments.')
+# print ('Argument List:', str(sys.argv))
 
 if len(sys.argv) < 2:
 	print("Usage: python3 c2wy3dm.py [ObjFile] [OutputFile]")
 	sys.exit(1)
 	
-IN=sys.argv[1]
+IN = sys.argv[1]
 
 if len(sys.argv) < 3:
-	OUT=IN+".wy3dm"
+	OUT = IN+".wy3dm"
 else:
-	OUT=sys.argv[2]
+	OUT = sys.argv[2]
 
-print("**Wineyard3D** OBJ to WY3DM converter\n")
+print("*** Wineyard3d *** OBJ to WY3DM converter\n")
 print("Input file: " + IN)
 print("Output file: " + OUT + "\n")
 
@@ -31,7 +31,7 @@ with open(IN, 'r') as file:
 	for line in file:
 		line = line.replace("\n", "")
 		id = line[0:2]
-		#print(id)
+		# print(id)
 		
 		spl = line[2:].split(" ")
 		for s in spl:
@@ -50,11 +50,11 @@ unpT = []
 unpN = []
 unpI = []
 
-for i in range(0, len(f), 3):
-	print("\rConverting: " + str(int(i*100/len(f))) + "%", end="")
-	f1 = f[i]
-	f2 = f[i+1]
-	f3 = f[i+2]
+for j in range(0, len(f), 3):
+	print("\rConverting: " + str(int(j*100/len(f))) + "%", end="")
+	f1 = f[j]
+	f2 = f[j+1]
+	f3 = f[j+2]
 	
 	tmpv = []
 	tmpt = []
@@ -68,8 +68,7 @@ for i in range(0, len(f), 3):
 		
 	for i in range(0, 3):
 		tmpv.append(v[int(int(f3[0])-1)*3+i])
-	
-	
+
 	
 	for i in range(0, 2):
 		tmpt.append(vt[int(int(f1[1])-1)*2+i])
@@ -80,9 +79,7 @@ for i in range(0, len(f), 3):
 	for i in range(0, 2):
 		tmpt.append(vt[int(int(f3[1])-1)*2+i])
 	
-	
-	
-	
+
 	for i in range(0, 3):
 		tmpn.append(vn[int(int(f1[2])-1)*3+i])
 		
@@ -114,25 +111,26 @@ miny = unpV[0]
 maxy = unpV[0]
 minz = unpV[0]
 maxz = unpV[0]
+
 for i in range(0, len(unpV), 3):
-    print("\rCalculating bounding box: " + str(int(i*100/len(unpV))) + "%", end="")
-    ix = unpV[i+0]
-    iy = unpV[i+1]
-    iz = unpV[i+2]
-    
-    if ix > maxx:
-        maxx = ix
-    if ix < minx:
-        minx = ix
-    if iy > maxy:
-        maxy = iy
-    if iy < miny:
-        miny = iy
-    if iz > maxz:
-        maxz = iz
-    if iz < minz:
-        minz = iz
-    
+	print("\rCalculating bounding box: " + str(int(i*100/len(unpV))) + "%", end="")
+	ix = unpV[i+0]
+	iy = unpV[i+1]
+	iz = unpV[i+2]
+
+	if ix > maxx:
+		maxx = ix
+	if ix < minx:
+		minx = ix
+	if iy > maxy:
+		maxy = iy
+	if iy < miny:
+		miny = iy
+	if iz > maxz:
+		maxz = iz
+	if iz < minz:
+		minz = iz
+
 mdx = abs(float(maxx) - float(minx))
 mdy = abs(float(maxy) - float(miny))
 mdz = abs(float(maxz) - float(minz))
@@ -170,7 +168,7 @@ for i in range(0, len(unpT)):
 		fout.write(",")
 
 fout.write("\n\nb\n")
-fout.write(str(mdx) + "," + str(mdy) + "," + str(mdz));
+fout.write(str(mdx) + "," + str(mdy) + "," + str(mdz))
 print("\rWriting: " + "100%\n")		
 fout.close()
 
